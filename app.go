@@ -76,7 +76,7 @@ func getTodosID(w http.ResponseWriter, r *http.Request) {
 }
 
 func createTodo(w http.ResponseWriter, r *http.Request) {
-	// Get POST data?
+	// Get POST json Data
 	var newtodos todos
 
 	err := json.NewDecoder(r.Body).Decode(&newtodos)
@@ -91,7 +91,8 @@ func createTodo(w http.ResponseWriter, r *http.Request) {
 		checkError(err)
 		return
 	}
-	// sql.Result's LastInsertId() obtain AUTO_INCREMENT values
+
+	// get the new ID given
 	lastInsertID, err := result.LastInsertId()
 	if err != nil {
 		checkError(err)
@@ -104,7 +105,7 @@ func createTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateTodo(w http.ResponseWriter, r *http.Request) {
-	// Seem like must use JSON
+	// Get PUT json Data
 	var newtodos todos
 
 	params := mux.Vars(r)
